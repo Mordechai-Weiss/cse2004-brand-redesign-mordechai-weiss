@@ -1,15 +1,27 @@
 /* ===========================================================
    Golden Corral — redesign concept
-   Color system: the background is an intentional near-white
-   (#FBF9F5) and body/heading text is an intentional near-black
-   (#221C16) rather than pure #FFFFFF/#000000. Pure white (#FFFFFF)
-   is used only for small card surfaces sitting on top of the
-   near-white background, which is an intentional accent use, not
-   the page background.
-   All heading and body text colors are verified to meet WCAG AAA
-   contrast against the backgrounds they sit on (7:1 for body text,
-   and well above the 4.5:1 AAA large-text minimum for headings;
-   see commented ratios below).
+   Color system: the page background (--bg, #FBF3E3) and body text
+   (--text, #2B1810) are an intentional near-white / near-black pair,
+   not pure #FFFFFF / #000000. The one intentional exception is
+   --surface (#FFFFFF), used only for small card/frame surfaces that
+   sit on top of the near-white page background — never as the page
+   background itself.
+   Every text/background pairing actually used below has been checked
+   against WCAG AAA (7:1 for normal text). Ratios, computed from the
+   final hex values:
+     --text on --bg:              15.34:1
+     --text on --surface:         16.92:1
+     --text-secondary on --bg:     8.01:1
+     --text-secondary on --surface:8.84:1
+     --heading on --bg:            9.31:1
+     --heading on --surface:      10.28:1
+     white on --accent-dark:      10.28:1
+     --band-text on --band-bg:    15.34:1
+     --band-text-secondary on --band-bg: 11.45:1
+     --gold-bright on --band-bg:   8.01:1
+   --accent and --gold are decorative only (borders, underlines, small
+   non-text UI) and are never used for text at normal size, since they
+   fall short of AAA on their own.
    =========================================================== */
 
 * {
@@ -17,17 +29,19 @@
 }
 
 :root {
-  --bg: #fbf9f5;              /* near-white page background */
-  --surface: #ffffff;         /* intentional pure white, card surfaces only */
-  --text: #221c16;            /* near-black body text — 16.0:1 on --bg */
-  --text-secondary: #5b4f42;  /* muted text — 7.56:1 on --bg (AAA) */
-  --heading: #7c3215;         /* burnt-rust heading color — 8.59:1 on --bg (AAA) */
-  --accent: #a3431d;          /* buttons, links, borders */
-  --accent-dark: #7c3215;     /* button hover / solid buttons w/ white text (9.0:1) */
-  --gold: #c68a2e;            /* decorative only — never used for text */
-  --band-bg: #2b211a;         /* deep near-black brown, promo band background */
-  --band-text: #fbf9f5;       /* near-white text on --band-bg — 15.0:1 */
-  --border: #e4dccb;
+  --bg: #fbf3e3;                  /* near-white page background */
+  --surface: #ffffff;             /* intentional pure white, card/frame surfaces only */
+  --text: #2b1810;                /* near-black body text */
+  --text-secondary: #5c4631;      /* muted text */
+  --heading: #7a1f1f;             /* barn-red heading color */
+  --accent-dark: #7a1f1f;         /* same as heading — solid buttons, links */
+  --accent: #b23a2e;              /* decorative only: borders, underlines, small shapes */
+  --gold: #c98a2c;                /* decorative only on light backgrounds */
+  --gold-bright: #e0a94a;         /* AAA-safe gold for use on --band-bg */
+  --band-bg: #2b1810;             /* dark brown, promo band + "why" section */
+  --band-text: #fbf3e3;
+  --band-text-secondary: #e3d2bc;
+  --border: #e6d8be;
   --max-width: 1180px;
 }
 
@@ -37,19 +51,20 @@ html {
 
 body {
   margin: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 17px;
   line-height: 1.65;
   color: var(--text);
   background-color: var(--bg);
 }
 
+/* Headings share one font family across h1/h2/h3, varying only by size. */
 h1, h2, h3 {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 700;
+  font-family: "Alfa Slab One", Georgia, serif;
+  font-weight: 400;
   color: var(--heading);
-  line-height: 1.15;
-  margin: 0 0 0.5em;
+  line-height: 1.2;
+  margin: 0 0 0.55em;
 }
 
 p {
@@ -104,8 +119,8 @@ ul {
 .btn {
   display: inline-block;
   padding: 13px 26px;
-  border-radius: 999px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: 700;
   font-size: 0.95rem;
   text-decoration: none;
   border: 2px solid transparent;
@@ -122,7 +137,7 @@ ul {
 }
 
 .btn-accent:hover {
-  background-color: #5f250f;
+  background-color: #591414;
 }
 
 .btn-outline {
@@ -149,7 +164,7 @@ ul {
 
 .site-header {
   background-color: var(--surface);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 3px solid var(--band-bg);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -158,7 +173,7 @@ ul {
 .header-inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -168,23 +183,27 @@ ul {
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   color: var(--heading);
   flex-shrink: 0;
 }
 
 .logo-mark {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   color: var(--accent-dark);
   flex-shrink: 0;
 }
 
+.logo-monogram {
+  font-family: "Alfa Slab One", Georgia, serif;
+}
+
 .logo-word {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 700;
-  font-size: 1.3rem;
+  font-family: "Alfa Slab One", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.05;
   letter-spacing: 0.01em;
 }
 
@@ -202,7 +221,7 @@ ul {
 .primary-nav a:not(.btn) {
   color: var(--text);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.97rem;
   padding: 6px 2px;
   border-bottom: 2px solid transparent;
@@ -249,14 +268,14 @@ ul {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--accent-dark);
   margin-bottom: 14px;
 }
 
 .hero h1 {
-  font-size: 2.6rem;
-  margin-bottom: 0.4em;
+  font-size: 2.5rem;
+  margin-bottom: 0.45em;
 }
 
 .hero-sub {
@@ -272,64 +291,90 @@ ul {
   margin-top: 8px;
 }
 
-.hero-image img {
-  width: 100%;
-  border-radius: 14px;
-  box-shadow: 0 18px 40px rgba(34, 28, 22, 0.18);
+.hero-image {
+  position: relative;
 }
 
-/* Why grid -------------------------------------------------------- */
+.hero-photo-frame {
+  background-color: var(--surface);
+  border: 10px solid var(--surface);
+  border-radius: 6px;
+  box-shadow: 0 18px 40px rgba(43, 24, 16, 0.22);
+  overflow: hidden;
+}
+
+.hero-photo-frame img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.stamp {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background-color: var(--accent-dark);
+  color: var(--band-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Permanent Marker", cursive;
+  font-size: 0.9rem;
+  line-height: 1.15;
+  transform: rotate(-9deg);
+  box-shadow: 0 6px 16px rgba(43, 24, 16, 0.35);
+  border: 3px solid var(--band-text);
+}
+
+/* Why section — chalkboard list, not a card grid ----------------- */
 
 .why {
-  max-width: var(--max-width);
+  background-color: var(--band-bg);
+}
+
+.why-inner {
+  max-width: 760px;
   margin: 0 auto;
-  padding: 24px 24px 72px;
+  padding: 64px 24px;
 }
 
 .why h2 {
+  color: var(--band-text);
+  font-size: 1.9rem;
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
 }
 
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+.why-list li {
+  color: var(--band-text);
+  font-size: 1.08rem;
+  padding-left: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
 }
 
-.why-card {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 28px 24px;
-  text-align: left;
-}
-
-.why-icon {
-  width: 36px;
-  height: 36px;
-  color: var(--accent-dark);
-  margin-bottom: 16px;
-}
-
-.why-card h3 {
-  font-size: 1.15rem;
-  margin-bottom: 0.4em;
-}
-
-.why-card p {
-  color: var(--text-secondary);
-  font-size: 0.96rem;
+.why-list li:last-child {
   margin-bottom: 0;
 }
 
-/* Menu highlights ----------------------------------------------- */
+.why-star {
+  color: var(--gold-bright);
+  font-size: 1.1em;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+/* Menu highlights / photo collage --------------------------------- */
 
 .menu-highlights {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 24px 24px 72px;
+  padding: 72px 24px;
 }
 
 .section-head {
@@ -339,7 +384,7 @@ ul {
 }
 
 .section-head h2 {
-  font-size: 2rem;
+  font-size: 1.9rem;
 }
 
 .section-head p {
@@ -347,32 +392,94 @@ ul {
   margin-bottom: 0;
 }
 
-.menu-grid {
+.collage {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "big big a b"
+    "big big c c";
+  gap: 28px;
+  height: 460px;
 }
 
-.menu-card img {
+.collage-big { grid-area: big; }
+.collage-a { grid-area: a; }
+.collage-b { grid-area: b; }
+.collage-c { grid-area: c; }
+
+.collage-item {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 10px 22px rgba(43, 24, 16, 0.18);
+}
+
+.collage-item > img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 14px;
+  display: block;
 }
 
-.menu-card h3 {
-  font-size: 1.05rem;
-  margin-bottom: 0.3em;
+/* The photo itself tilts slightly; overflow:hidden on the figure
+   clips the rotated corners so this never affects page layout or
+   causes horizontal scroll at any width. */
+.collage-big > img { transform: rotate(-1.2deg) scale(1.06); }
+.collage-a > img { transform: rotate(2deg) scale(1.1); }
+.collage-b > img { transform: rotate(-2deg) scale(1.1); }
+.collage-c > img { transform: rotate(1deg) scale(1.08); }
+
+/* Caption sits as a solid-background tag over the bottom of the
+   photo rather than flowing below it, so it never fights the
+   figure's fixed/aspect-ratio height for space. */
+.collage-item figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--band-bg);
+  color: var(--band-text);
+  font-family: "Permanent Marker", cursive;
+  font-size: 0.78rem;
+  letter-spacing: 0.01em;
+  padding: 7px 12px;
+  margin: 0;
 }
 
-.menu-card p {
+/* Customer pull-quote --------------------------------------------- */
+
+.quote-section {
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 24px;
+}
+
+.quote-section blockquote {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.quote-section blockquote p {
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.6em;
+}
+
+.quote-section blockquote footer {
+  font-family: "Permanent Marker", cursive;
+  font-size: 1rem;
   color: var(--text-secondary);
-  font-size: 0.92rem;
-  margin-bottom: 0;
+  display: inline-block;
+  transform: rotate(-1.5deg);
 }
 
-/* Promo band ------------------------------------------------------ */
+/* Promo band / punchcard -------------------------------------------- */
 
 .band {
   background-color: var(--band-bg);
@@ -388,42 +495,52 @@ ul {
 
 .band h2 {
   color: var(--band-text);
-  font-size: 2rem;
+  font-size: 1.9rem;
 }
 
 .band p {
-  color: #d9cfc1;
+  color: var(--band-text-secondary);
   font-size: 1.05rem;
 }
 
-/* Stats ------------------------------------------------------------ */
-
-.stats {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 56px 24px;
+.punchcard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 30px 0 12px;
 }
 
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  text-align: center;
+.punchcard li {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--band-text-secondary);
+  position: relative;
 }
 
-.stat-number {
-  display: block;
-  font-family: "Fraunces", Georgia, serif;
+.punchcard li.punched {
+  background-color: var(--gold-bright);
+  border-color: var(--gold-bright);
+}
+
+.punchcard li.punched::after {
+  content: "\2713";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--band-bg);
+  font-size: 0.9rem;
   font-weight: 700;
-  font-size: 3rem;
-  color: var(--heading);
 }
 
-.stat-label {
-  display: block;
-  color: var(--text-secondary);
+.punchcard-label {
+  font-family: "Permanent Marker", cursive;
   font-size: 0.95rem;
-  margin-top: 6px;
+  color: var(--band-text-secondary);
+  margin-bottom: 26px;
 }
 
 /* Visit ---------------------------------------------------------------- */
@@ -431,7 +548,7 @@ ul {
 .visit {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 24px 24px 88px;
+  padding: 72px 24px 88px;
   text-align: center;
 }
 
@@ -446,7 +563,7 @@ ul {
 
 .site-footer {
   background-color: var(--surface);
-  border-top: 1px solid var(--border);
+  border-top: 3px solid var(--band-bg);
 }
 
 .footer-inner {
@@ -478,7 +595,7 @@ ul {
 .footer-nav a {
   color: var(--text);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.93rem;
 }
 
@@ -511,20 +628,30 @@ ul {
 /* Responsive -------------------------------------------------------------- */
 
 @media (max-width: 900px) {
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .hero {
     grid-template-columns: 1fr;
   }
 
   .hero-image {
     order: -1;
+  }
+
+  .collage {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "big big"
+      "a b"
+      "c c";
+    height: auto;
+  }
+
+  .collage-big > img,
+  .collage-a > img,
+  .collage-b > img,
+  .collage-c > img {
+    aspect-ratio: 4 / 3;
+    height: auto;
   }
 }
 
@@ -535,7 +662,7 @@ ul {
     left: 0;
     right: 0;
     background-color: var(--surface);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 3px solid var(--band-bg);
     flex-direction: column;
     align-items: stretch;
     padding: 18px 24px 24px;
@@ -561,12 +688,11 @@ ul {
   }
 
   .hero h1 {
-    font-size: 2.1rem;
+    font-size: 2rem;
   }
 
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .quote-section blockquote p {
+    font-size: 1.2rem;
   }
 
   .footer-inner {
@@ -584,13 +710,8 @@ ul {
 }
 
 @media (max-width: 560px) {
-  .why-grid,
-  .menu-grid {
-    grid-template-columns: 1fr;
-  }
-
   .hero h1 {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
   }
 
   .hero-actions,
@@ -601,6 +722,39 @@ ul {
 
   .btn {
     text-align: center;
+  }
+
+  .collage {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "big"
+      "a"
+      "b"
+      "c";
+    gap: 22px;
+  }
+
+  /* Below this width every rotation is removed so nothing can push
+     past the viewport edge — the collage, hero stamp, and quote
+     signature all sit flush and axis-aligned instead. */
+  .collage-big > img,
+  .collage-a > img,
+  .collage-b > img,
+  .collage-c > img {
+    transform: none;
+  }
+
+  .quote-section blockquote footer {
+    transform: none;
+  }
+
+  .stamp {
+    top: 10px;
+    right: 10px;
+    width: 68px;
+    height: 68px;
+    font-size: 0.72rem;
+    transform: none;
   }
 }
 
@@ -614,6 +768,15 @@ ul {
   }
 
   .logo-word {
-    font-size: 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  .why-inner,
+  .menu-highlights,
+  .quote-section,
+  .band,
+  .visit {
+    padding-left: 18px;
+    padding-right: 18px;
   }
 }
