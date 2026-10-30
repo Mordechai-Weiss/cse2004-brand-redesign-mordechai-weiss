@@ -15,7 +15,7 @@
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="header-inner">
+  <div class="masthead-top">
     <a class="logo" href="#top" aria-label="Golden Corral home">
       <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
         <defs>
@@ -28,7 +28,7 @@
         </text>
         <text x="50" y="60" text-anchor="middle" font-size="27" fill="currentColor" class="logo-monogram">GC</text>
       </svg>
-      <span class="logo-word">Golden<br>Corral</span>
+      <span class="logo-word">Golden Corral</span>
     </a>
 
     <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
@@ -37,23 +37,27 @@
       <span class="nav-toggle-bar"></span>
       <span class="visually-hidden">Menu</span>
     </button>
-
-    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
-      <ul>
-        <li><a href="#why">Why Us</a></li>
-        <li><a href="#menu">What's Cookin'</a></li>
-        <li><a href="#rewards">Rewards</a></li>
-        <li><a href="#visit">Visit Us</a></li>
-      </ul>
-      <a class="btn btn-accent nav-cta" href="#visit">Find Your Corral</a>
-    </nav>
   </div>
+
+  <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+    <ul>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#menu">What's Cookin'</a></li>
+      <li><a href="#rewards">Rewards</a></li>
+      <li><a href="#visit">Visit Us</a></li>
+    </ul>
+    <a class="btn btn-accent nav-cta" href="#visit">Find Your Corral</a>
+  </nav>
 </header>
 
 <main id="main">
 
   <section class="hero" id="top">
-    <div class="hero-text">
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="images/buffet-line.jpg" alt="A server reaching into a long buffet line of hot entrées in stainless steel trays" width="1600" height="900">
+      <div class="stamp" aria-hidden="true"><span>Est.<br>1973</span></div>
+    </div>
+    <div class="hero-card">
       <p class="eyebrow">All-You-Can-Eat, Since 1973</p>
       <h1>Fill your plate. Then fill it again.</h1>
       <p class="hero-sub">Carved meats, a salad bar that doesn't quit, and yeast rolls people still talk about on the ride home. Breakfast, lunch, and dinner, all included, every trip you make to the line.</p>
@@ -62,16 +66,10 @@
         <a class="btn btn-outline" href="#visit">Find Your Corral</a>
       </div>
     </div>
-    <div class="hero-image">
-      <div class="hero-photo-frame">
-        <img src="images/buffet-line.jpg" alt="A server reaching into a long buffet line of hot entrées in stainless steel trays" width="1200" height="800">
-      </div>
-      <div class="stamp" aria-hidden="true"><span>Est.<br>1973</span></div>
-    </div>
   </section>
 
   <section class="why" id="why" aria-labelledby="why-heading">
-    <div class="why-inner">
+    <div class="why-grid">
       <h2 id="why-heading">Why folks keep coming back</h2>
       <ul class="why-list">
         <li><span class="why-star" aria-hidden="true">&#9733;</span> Soup, salad, carved meats, hot entr&eacute;es, dessert &mdash; one price, all of it, every single visit.</li>
@@ -88,23 +86,25 @@
       <p>A taste of what rotates through breakfast, lunch, and dinner &mdash; swap in whatever's in season at your Corral.</p>
     </div>
 
-    <div class="collage">
-      <figure class="collage-item collage-big">
-        <img src="images/carved-steak.jpg" alt="Thick slices of seasoned carved steak on a wooden board" width="900" height="700">
-        <figcaption>carved to order, fresh off the line</figcaption>
-      </figure>
-      <figure class="collage-item collage-small collage-a">
-        <img src="images/salad-bar.jpg" alt="An overhead view of a fresh salad bar with compartments of vegetables, beans, and toppings" width="900" height="700" loading="lazy">
-        <figcaption>build-your-own salad bar</figcaption>
-      </figure>
-      <figure class="collage-item collage-small collage-b">
-        <img src="images/dinner-rolls.jpg" alt="A basket of warm, golden-brown yeast rolls" width="900" height="700" loading="lazy">
-        <figcaption>the famous yeast rolls</figcaption>
-      </figure>
-      <figure class="collage-item collage-small collage-c">
-        <img src="images/ice-cream-cones.jpg" alt="Five ice cream cones in different flavors with rainbow sprinkles" width="900" height="700" loading="lazy">
-        <figcaption>soft serve, always running</figcaption>
-      </figure>
+    <div class="collage-wrap">
+      <div class="collage">
+        <figure class="collage-item collage-big">
+          <img src="images/carved-steak.jpg" alt="Thick slices of seasoned carved steak on a wooden board" width="900" height="700">
+          <figcaption>carved to order, fresh off the line</figcaption>
+        </figure>
+        <figure class="collage-item collage-small collage-a">
+          <img src="images/salad-bar.jpg" alt="An overhead view of a fresh salad bar with compartments of vegetables, beans, and toppings" width="900" height="700" loading="lazy">
+          <figcaption>build-your-own salad bar</figcaption>
+        </figure>
+        <figure class="collage-item collage-small collage-b">
+          <img src="images/dinner-rolls.jpg" alt="A basket of warm, golden-brown yeast rolls" width="900" height="700" loading="lazy">
+          <figcaption>the famous yeast rolls</figcaption>
+        </figure>
+        <figure class="collage-item collage-small collage-c">
+          <img src="images/ice-cream-cones.jpg" alt="Five ice cream cones in different flavors with rainbow sprinkles" width="900" height="700" loading="lazy">
+          <figcaption>soft serve, always running</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -116,33 +116,39 @@
   </section>
 
   <section class="band" id="rewards" aria-labelledby="rewards-heading">
-    <div class="band-inner">
-      <h2 id="rewards-heading">Every visit gets you closer</h2>
-      <p>Join the free rewards program and start punching your card &mdash; no app required to get started, no fees, no catch.</p>
-      <ul class="punchcard" aria-hidden="true">
-        <li class="punched"></li>
-        <li class="punched"></li>
-        <li class="punched"></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      <p class="punchcard-label">3 of 8 visits toward a free meal</p>
-      <a class="btn btn-light" href="#visit">Join Rewards</a>
+    <div class="band-grid">
+      <div class="band-copy">
+        <h2 id="rewards-heading">Every visit gets you closer</h2>
+        <p>Join the free rewards program and start punching your card &mdash; no app required to get started, no fees, no catch.</p>
+        <a class="btn btn-light" href="#visit">Join Rewards</a>
+      </div>
+      <div class="band-card">
+        <ul class="punchcard" aria-hidden="true">
+          <li class="punched"></li>
+          <li class="punched"></li>
+          <li class="punched"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <p class="punchcard-label">3 of 8 visits toward a free meal</p>
+      </div>
     </div>
   </section>
 
   <section class="visit" id="visit" aria-labelledby="visit-heading">
-    <div class="section-head">
-      <h2 id="visit-heading">Plan your visit</h2>
-      <p>Find a location near you, check today's hours, or book the private party room for your next group gathering.</p>
-    </div>
-    <div class="visit-actions">
-      <a class="btn btn-accent" href="#visit">Find a Location</a>
-      <a class="btn btn-outline" href="#visit">Book a Party Room</a>
-      <a class="btn btn-outline" href="#visit">Order Delivery</a>
+    <div class="visit-card">
+      <div class="section-head">
+        <h2 id="visit-heading">Plan your visit</h2>
+        <p>Find a location near you, check today's hours, or book the private party room for your next group gathering.</p>
+      </div>
+      <div class="visit-actions">
+        <a class="btn btn-accent" href="#visit">Find a Location</a>
+        <a class="btn btn-outline" href="#visit">Book a Party Room</a>
+        <a class="btn btn-outline" href="#visit">Order Delivery</a>
+      </div>
     </div>
   </section>
 
@@ -156,7 +162,7 @@
         <circle cx="50" cy="50" r="37" fill="none" stroke="currentColor" stroke-width="1.25"></circle>
         <text x="50" y="60" text-anchor="middle" font-size="27" fill="currentColor" class="logo-monogram">GC</text>
       </svg>
-      <span class="logo-word">Golden<br>Corral</span>
+      <span class="logo-word">Golden Corral</span>
     </a>
     <nav class="footer-nav" aria-label="Footer">
       <ul>
